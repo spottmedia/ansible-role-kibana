@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: ansible-role-kibana
+      kibana_local: files/kibana-{{ kibana_version }}-amd64.deb
+      kibana_url: false

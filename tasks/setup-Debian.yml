@@ -2,28 +2,36 @@
 - name: Ensure dependency is installed (Ubuntu).
   apt: name=apt-transport-https state=present
 
-- name: Add Elasticsearch apt key (< 5.x).
-  apt_key:
-    url: https://packages.elastic.co/GPG-KEY-elasticsearch
-    state: present
-  when: kibana_version is version_compare('5', '<')
+- name: Check if kibana is installed
+  command: dpkg-query -W kibana
+  register: kibana_check_deb
+  failed_when: kibana_check_deb.rc > 1
+  changed_when: kibana_check_deb.rc == 1
 
-- name: Add Elasticsearch apt key (>= 5.x).
-  apt_key:
-    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-    state: present
-  when: kibana_version is version_compare('5', '>=')
+- name: Download kibana-{{ kibana_version }}
+  get_url:
+    url="{{ kibana_download }}"
+    dest="/var/kibana-{{ kibana_version }}.deb"
+  when: kibana_check_deb.rc == 1 and kibana_url
 
-- name: Add Kibana repository (< 5.x)..
-  apt_repository:
-    repo: 'deb https://packages.elastic.co/kibana/{{ kibana_version }}/apt stable main'
-    state: present
-    update_cache: yes
-  when: kibana_version is version_compare('5', '<')
+- name: Copy kibana-{{ kibana_version }}
+  copy:
+    src="{{ kibana_local }}"
+    dest="/var/kibana-{{ kibana_version }}.deb"
+  when: kibana_check_deb.rc == 1 and kibana_local and not kibana_url
 
-- name: Add Kibana repository (>= 5.x)..
-  apt_repository:
-    repo: 'deb https://artifacts.elastic.co/packages/{{ kibana_version }}/apt stable main'
-    state: present
-    update_cache: yes
-  when: kibana_version is version_compare('5', '>=')
+- name: Install kibana-{{ kibana_version }}
+  apt: deb="/var/kibana-{{ kibana_version }}.deb"
+  when: kibana_check_deb.rc == 1
+  notify:
+    - Create Kibana extra folders
+    - Start Kibana
+
+- name: Tweak kibana's service file for PID file permissions
+  lineinfile:
+    path: /etc/systemd/system/kibana.service
+    insertafter: '^\[Service\]'
+    line: 'RuntimeDirectory=kibana'
+
+- name: Flush Handlers.
+  meta: flush_handlers

@@ -2,25 +2,21 @@
 dependencies: []
 
 galaxy_info:
-  author: geerlingguy
-  description: Kibana for Linux.
-  company: "Midwestern Mac, LLC"
+  author: spottmedia
+  description: Kibana for Ubuntu/Debian.
+  company: "Spottmedia Ltd."
   license: "license (BSD, MIT)"
   min_ansible_version: 2.0
   platforms:
-  - name: EL
-    versions:
-    - 6
-    - 7
-  - name: Debian
-    versions:
-    - jessie
-  - name: Ubuntu
-    versions:
-    - precise
-    - trusty
-    - xenial
+    - name: Debian
+      versions:
+        - jessie
+        - buster
+    - name: Ubuntu
+      versions:
+        - bionic
+        - xenial
   galaxy_tags:
-    - web
-    - system
+    - elk
     - monitoring
+    - logging

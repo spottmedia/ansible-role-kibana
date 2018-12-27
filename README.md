@@ -1,6 +1,5 @@
 # Ansible Role: Kibana
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-kibana.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-kibana)
 
 An Ansible Role that installs Kibana on RedHat/CentOS or Debian/Ubuntu.
 
@@ -40,12 +39,4 @@ None.
 
     - hosts: kibana
       roles:
-        - geerlingguy.kibana
-
-## License
-
-MIT / BSD
-
-## Author Information
-
-This role was created in 2014 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+        - spottmedia.kibana

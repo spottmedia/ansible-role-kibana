@@ -1,0 +1,8 @@
+---
+- name: Kibana logging file
+  file:
+    path: /var/log/kibana.log
+    state: touch
+    group: kibana
+    owner: kibana
+    mode: "u+rw,g+rw,o-rwx"
