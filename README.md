@@ -7,6 +7,12 @@ An Ansible Role that installs Kibana on RedHat/CentOS or Debian/Ubuntu.
 
 None.
 
+## Testing
+
+* Download https://artifacts.elastic.co/downloads/kibana/kibana-6.3.1-amd64.deb and 
+put into `files` folder of the project
+*  Run `molecule test`
+
 ## Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
