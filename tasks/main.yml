@@ -1,5 +1,5 @@
 ---
-- include: setup-Debian.yml
+- include: setup-debian.yml
   when: ansible_os_family == 'Debian'
 
 - name: Ensure Kibana is started and enabled at boot.

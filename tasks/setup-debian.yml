@@ -1,7 +1,4 @@
 ---
-- name: Ensure dependency is installed (Ubuntu).
-  apt: name=apt-transport-https state=present
-
 - name: Check if kibana is installed
   command: dpkg-query -W kibana
   register: kibana_check_deb

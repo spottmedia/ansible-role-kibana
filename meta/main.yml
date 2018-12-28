@@ -5,7 +5,7 @@ galaxy_info:
   author: spottmedia
   description: Kibana for Ubuntu/Debian.
   company: "Spottmedia Ltd."
-  license: "license (BSD, MIT)"
+  license: "license (WTF)"
   min_ansible_version: 2.0
   platforms:
     - name: Debian

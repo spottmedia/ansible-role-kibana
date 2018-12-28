@@ -1,13 +1,20 @@
 # Ansible Role: Kibana
 
+An Ansible Role that installs Kibana on Debian/Ubuntu. CentOS might come in future if requested/PRed
+Uses *.deb to install kibana and has full `molecule` coverage.
 
-An Ansible Role that installs Kibana on RedHat/CentOS or Debian/Ubuntu.
+### Why not install via yum/apt ?
+
+It turned out to be frekishly hard (if not impossible) to install and maintain the library
+via repos, so all had to be hacked 
 
 ## Requirements
 
 None.
 
 ## Testing
+
+All testing via molecule
 
 * Download https://artifacts.elastic.co/downloads/kibana/kibana-6.3.1-amd64.deb and 
 put into `files` folder of the project
@@ -17,23 +24,17 @@ put into `files` folder of the project
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-(for sub 5.x)
 
-    kibana_version: "4.6"
-    
-(for >= 5.x)    
+* Kibana listen IP/port combination:
 
-    kibana_version: "5.x"    
-    kibana_version: "6.x"
-
-The version of kibana to install (major and minor only).
-
+    ```
     kibana_server_port: 5601
     kibana_server_host: "0.0.0.0"
+    ```
 
-The FQDN or IP address and port Kibana should use.
+* ES search address:
 
-    kibana_elasticsearch_url: "http://localhost:9200"
+    `kibana_elasticsearch_url: "http://localhost:9200"`
 
 The URL (including port) over which Kibana will connect to Elasticsearch.
 
@@ -41,8 +42,8 @@ The URL (including port) over which Kibana will connect to Elasticsearch.
 
 None.
 
-## Example Playbook
+## Example Playbook (if pulled from github)
 
     - hosts: kibana
       roles:
-        - spottmedia.kibana
+        - ansible-role-kibana
