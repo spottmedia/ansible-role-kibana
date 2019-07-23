@@ -7,7 +7,7 @@
     name: kibana
     enabled: true
 
-- name: Copy Kibana configuration.
+- name: Copy Kibana configuration, version 5.x and below
   template:
     src: kibana.yml.j2
     dest: "/opt/kibana/config/kibana.yml"
@@ -17,7 +17,7 @@
   notify: restart kibana
   when: kibana_version is version_compare('5', '<')
 
-- name: Copy Kibana configuration.
+- name: Copy Kibana configuration, version 6.x
   template:
     src: kibana.yml.j2
     dest: "/etc/kibana/kibana.yml"
@@ -25,4 +25,14 @@
     group: root
     mode: 0644
   notify: restart kibana
-  when: kibana_version is version_compare('5', '>=')
+  when: kibana_version is version_compare('6', '==')
+
+- name: Copy Kibana configuration, version 7.x+
+  template:
+    src: kibana.7.yml.j2
+    dest: "/etc/kibana/kibana.yml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart kibana
+  when: kibana_version is version_compare('7', '>=')
