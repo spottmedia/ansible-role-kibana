@@ -4,6 +4,3 @@
 
 - name: Start Kibana
   service: name=kibana state=started
-
-- name: Create Kibana extra folders
-  include: kibana_extra_folders.yml

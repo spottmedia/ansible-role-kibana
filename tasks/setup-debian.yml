@@ -21,8 +21,12 @@
   apt: deb="/var/kibana-{{ kibana_version }}.deb"
   when: kibana_check_deb.rc == 1
   notify:
-    - Create Kibana extra folders
     - Start Kibana
+  register: "kibana_installed"
+
+# temporary evade issue https://github.com/ansible/ansible/issues/14270#issuecomment-416880078
+- include: handlers/kibana_extra_folders.yml
+  when: kibana_installed is defined and kibana_installed.changed == True
 
 - name: Tweak kibana's service file for PID file permissions
   lineinfile:
