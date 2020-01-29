@@ -5,7 +5,7 @@ server.port: {{ kibana_server_port }}
 server.host: {{ kibana_server_host }}
 
 {% if kibana_config %}
-{{ es_config | to_nice_yaml(indent=2) }}
+{{ kibana_config | to_nice_yaml(indent=2) }}
 {% endif %}
 
 # If you are running kibana behind a proxy, and want to mount it at a path,
